@@ -1,3 +1,6 @@
 node_modules
 npm-debug.log
 lib
+.env
+battleaxe-*
+!battleaxe-config.js
