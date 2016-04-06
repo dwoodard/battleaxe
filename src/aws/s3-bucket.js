@@ -1,6 +1,5 @@
-import aws from './index'
 import { requiredValues } from '../utils/common'
-import config from '../config'
+import aws from './index'
 
 const s3 = new aws.S3()
 

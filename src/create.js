@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import crypto from 'crypto-extra'
-import shortid from 'shortid'
 import { saveToState, removeFromState } from './utils/state'
 import config from './config'
 
@@ -13,7 +12,6 @@ export default function () {
 
       const moduleName = serviceName.replace(/_/g, '-')
       const module = require(`./${provider}/${moduleName}`)
-      const generatedId = shortid.generate()
 
       const idHash = crypto.hash(service.id, {
         algorithm: 'md5'
