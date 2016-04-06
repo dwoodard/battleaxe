@@ -3,13 +3,14 @@ import fs from 'fs-extra'
 
 const keysFile = path.resolve('battleaxe-keys.js')
 const configFile = path.resolve('battleaxe-config.js')
-const stateFile = path.resolve('battleaxe-state.json')
-const trashCanFile = path.resolve('battleaxe-trash.json')
 
-fs.ensureFileSync(keysFile)
-fs.ensureFileSync(configFile)
-fs.ensureFileSync(stateFile)
-fs.ensureFileSync(trashCanFile)
+const baseDir = path.resolve('.battleaxe')
+const stateFile = path.resolve(baseDir, 'state.json')
+const trashCanFile = path.resolve(baseDir, 'trash.json')
+
+fs.ensureDirSync(baseDir)
+if (!fs.existsSync(stateFile)) fs.outputJsonSync(stateFile, {})
+if (!fs.existsSync(trashCanFile)) fs.outputJsonSync(trashCanFile, {})
 
 const config = {
   keys: require(keysFile),

@@ -12,13 +12,16 @@ const args = minimist(process.argv.slice(2))
 const command = args._[0]
 
 switch (command) {
-  case 'create':
-    require('./create').default()
+  case 'plan':
+    require('./components/plan').default()
     break
-  case 'destroy':
-    require('./destroy').default()
+  case 'apply':
+    require('./components/apply').default()
     break
   case 'cleanup':
-    require('./cleanup').default()
+    require('./components/cleanup').default()
+    break
+  default:
+    require('./components/help').default()
     break
 }

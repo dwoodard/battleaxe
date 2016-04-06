@@ -2,5 +2,6 @@ node_modules
 npm-debug.log
 lib
 .env
-battleaxe-*
-!battleaxe-config.js
+
+.battleaxe
+battleaxe-keys.js
