@@ -1,1 +1,1 @@
-const mustacheRegex = /{{\s*([^\s]+)\s*}}/g
+// const mustacheRegex = /{{\s*([^\s]+)\s*}}/g

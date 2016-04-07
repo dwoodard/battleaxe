@@ -1,7 +1,7 @@
-export function create() {
+export function create () {
   return Promise.resolve()
 }
 
-export function destroy() {
+export function destroy () {
   return Promise.resolve()
 }

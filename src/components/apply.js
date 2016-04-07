@@ -1,8 +1,7 @@
-import path from 'path'
 import _ from 'lodash'
 import crypto from 'crypto-extra'
 import { saveToState, cleanUpState } from '../utils/state'
-import config from '../config'
+import { config } from '../config'
 
 const QUEUE = []
 
@@ -19,23 +18,23 @@ export default function () {
       createService(provider, service, hash)
 
       Promise.all(QUEUE)
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
     })
   })
 
   cleanUpState(hashes)
 }
 
-export function createService(provider, service, hash) {
-  const moduleName = `./providers/${provider}/${service.serviceType}`
+export function createService (provider, service, hash) {
+  const moduleName = `../providers/${provider}/${service.serviceType}`
   const module = require(moduleName)
 
   service.serviceProvider = provider
   if (config.state[hash]) return
 
   const chain = module.create(service)
-    .then(data => saveToState(hash, service, data))
-    .catch(err => console.log(err))
+    .then((data) => saveToState(hash, service, data))
+    .catch((err) => console.log(err))
 
   QUEUE.push(chain)
   return chain

@@ -1,29 +1,44 @@
 import path from 'path'
-import fs from 'fs-extra'
+import fs from 'fs-promise'
 
-const keysFile = path.resolve('battleaxe-keys.js')
-const configFile = path.resolve('battleaxe-config.js')
+export const config = { }
 
-const baseDir = path.resolve('.battleaxe')
-const stateFile = path.resolve(baseDir, 'state.json')
-const trashCanFile = path.resolve(baseDir, 'trash.json')
+export async function setupConfig (args) {
+  const keysFile = path.resolve('battleaxe-keys.js')
+  const configFile = path.resolve('battleaxe-config.js')
 
-fs.ensureDirSync(baseDir)
-if (!fs.existsSync(stateFile)) fs.outputJsonSync(stateFile, {})
-if (!fs.existsSync(trashCanFile)) fs.outputJsonSync(trashCanFile, {})
+  const baseDir = path.resolve('.battleaxe')
+  const stateFile = path.resolve(baseDir, 'state.json')
+  const trashCanFile = path.resolve(baseDir, 'trash.json')
 
-const config = {
-  keys: require(keysFile),
-  keysFile,
+  await fs.ensureDir(baseDir)
 
-  data: require(configFile),
-  configFile,
+  if (!await fs.exists(stateFile)) {
+    await fs.outputJson(stateFile, {})
+  }
 
-  state: require(stateFile),
-  stateFile,
+  if (!await fs.exists(trashCanFile)) {
+    await fs.outputJson(trashCanFile, {})
+  }
 
-  trashCan: require(trashCanFile),
-  trashCanFile,
+  config.keys = require(keysFile)
+  config.data = require(configFile)
+  config.state = require(stateFile)
+  config.trashCan = require(trashCanFile)
+
+  config.stateFile = stateFile
+  config.trashCanFile = trashCanFile
+  // const config = {
+  //   keys: require(keysFile),
+  //   keysFile,
+  //
+  //   data: require(configFile),
+  //   configFile,
+  //
+  //   state: require(stateFile),
+  //   stateFile,
+  //
+  //   trashCan: require(trashCanFile),
+  //   trashCanFile
+  // }
 }
-
-export default config
